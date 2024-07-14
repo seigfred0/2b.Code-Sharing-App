@@ -29,7 +29,7 @@
 body {
 
   height: 1200px;
-  background-color: #7c40ff;
+  background-image: linear-gradient(to bottom right, rgba(183, 135, 245, 1), rgba(116, 62, 228, 1));;
 }
 
 img {
@@ -58,6 +58,11 @@ img {
 
   top: 18em;
   position: absolute;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 1em;
 
   /* padding-right: 2em;
   padding-left: 2em; */
@@ -115,7 +120,10 @@ h3 {
 }
 
 .button-container  {
-  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 2em;
+  padding-right: 2em;
 }
 
 .button-container  > div{
@@ -123,6 +131,30 @@ h3 {
   gap: 0.5em;
 }
 
+.share button {
+  display: flex;
+  align-items: center;
+  background-color: var(--blue);
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  padding: 0.75em 1.5em;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-left: -1em;
+  box-sizing: border-box;
+}
+
+.share button:hover {
+  background-color: var(--dark1);
+  
+}
+
+.share button::before {
+  content: url('./assets/Share.svg');
+  padding-top: 0.2em;
+  padding-right: 0.4em;
+}
 
 .button {
   display: flex;
@@ -153,9 +185,7 @@ h3 {
 
 }
 
-.option-container .option {
-  /* padding-top: 1em; */
-}
+
 
 .button img {
   width: 15px;
@@ -163,7 +193,10 @@ h3 {
 }
 
 
-
+.share {
+  width: 100px;
+  height: 100%;
+}
 
 
 

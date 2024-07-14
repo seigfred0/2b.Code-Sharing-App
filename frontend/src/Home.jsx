@@ -2,16 +2,29 @@
 import CodeEditor from "../components/CodeEditor";
 import { useState } from "react";
 import Button from "../components/Buttons";
+import axios from 'axios'
 
 function Home() {
 
     const [code, setCode] = useState('// Write your code here');
     const [language, setLanguage] = useState('javascript');
-    const [theme, setTheme] = useState('vs-dark');
+    const [theme, setTheme] = useState('vs-light');
   
     const handleCodeChange = (newCode) => {
       setCode(newCode);
     };
+
+    const sendToServer = async () => {
+        console.log('sending from client, prepare...');
+        // const lol = 'uhmm did I arrive';
+    
+        try {
+            const result = await axios.post('http://localhost:3000/api/test', { code });
+            console.log('sent from server', result.data); // Log the response from the server
+        } catch (error) {
+            console.error('Error sending to server:', error); // Log any errors that occur
+        }
+    }
 
     return(
         <div className="container">
@@ -33,7 +46,10 @@ function Home() {
                         <Button title="HTML" type="select" options={['HTML', 'JavaScript', 'Python']}/>
                         <Button title="Light" type="toggle"/>
                     </div>
-                    <div className="share"></div>
+
+                    <div className="share">
+                        <button onClick={sendToServer}>Share</button>
+                    </div>
                 </div>
             </div>
         </div>
