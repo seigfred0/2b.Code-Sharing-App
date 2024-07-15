@@ -3,20 +3,21 @@ const app = express();
 const path = require('path');
 const cors = require('cors');
 const generateId = require('shortid');
+const Database = require('./Database');
 
-const db = []
 
 app.use(cors());
 app.use(express.json());
 
 app.get('/api/code/:uniqueId', async (req, res) => {
     const { uniqueId } = req.params;
-    const findCode = db.find(code => code.uniqueId === uniqueId)
+    // const findCode = db.find(code => code.uniqueId === uniqueId)
+    const data = await Database.getCode(uniqueId)
 
-    console.log('found..' + findCode.uniqueId)   
+    // console.log('found..' + data.uniqueId)   
 
-    if (findCode) {
-        res.json({ code: findCode})
+    if (data) {
+        res.json({ code: data})
     } else {
         res.status(404).json({ error: 'Code not found' })
     }
@@ -26,18 +27,12 @@ app.get('/api/code/:uniqueId', async (req, res) => {
 app.post('/api/share', (req, res) => {
     const { code } = req.body;
     const uniqueId = generateId.generate();
-    const newCode = {code, uniqueId}
+    const newCode = {code, uniqueId};
+    Database.saveCode(newCode);
 
-    db.push(newCode);
-    showDatabase()
 
     res.json({ uniqueId })
-
 });
-
-function showDatabase() {
-    console.log(db)
-}
 
 
 

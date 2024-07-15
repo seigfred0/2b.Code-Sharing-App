@@ -12,12 +12,13 @@ function Home() {
     const [theme, setTheme] = useState('vs-light');
     const { uniqueId } = useParams();
     const navigate = useNavigate();
-    const [shareEnable, setShareEnable] = useState(false);
+    const [shareEnable, setShareEnable] = useState(true);
     const [isModified, setIsModifired] = useState(false);
 
   
     const handleCodeChange = (newCode) => {
       setCode(newCode);
+      setIsModifired(true)
     };
 
 
@@ -37,7 +38,8 @@ function Home() {
             const { code } = result.data;
             console.log(code)
             const displayCode = code.code;
-            setCode(displayCode)
+            setCode(displayCode);
+            setShareEnable(false);
         
 
         
@@ -49,10 +51,16 @@ function Home() {
 
     const sendToServer = async () => {
         try {
-            const result = await axios.post('http://localhost:3000/api/share', { code });
-            const { uniqueId } = result.data
-            console.log('server response ' + uniqueId)
-            navigate(`/${uniqueId}`);
+            if (uniqueId && isModified) {
+                await axios.put(`http://localhost:3000/api/code/${uniqueId}`, { code })
+            } else {
+                const result = await axios.post('http://localhost:3000/api/share', { code });
+                const { uniqueId } = result.data
+                console.log('server response ' + uniqueId)
+                navigate(`/${uniqueId}`);
+            }
+            setIsModifired(false)
+           
 
         } catch (error) {
             console.error('Error sending to server:', error); 
@@ -81,7 +89,9 @@ function Home() {
                     </div>
 
                     <div className="share">
-                        <button onClick={sendToServer}>Share</button>
+                        <button onClick={sendToServer}>
+                            { shareEnable ? 'Share' : 'Update'}
+                        </button>
                     </div>
                 </div>
             </div>
