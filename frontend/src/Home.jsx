@@ -1,28 +1,61 @@
 
 import CodeEditor from "../components/CodeEditor";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Buttons";
 import axios from 'axios'
+import { useNavigate, useParams } from 'react-router-dom';
 
 function Home() {
 
     const [code, setCode] = useState('// Write your code here');
     const [language, setLanguage] = useState('javascript');
     const [theme, setTheme] = useState('vs-light');
+    const { uniqueId } = useParams();
+    const navigate = useNavigate();
+    const [shareEnable, setShareEnable] = useState(false);
+    const [isModified, setIsModifired] = useState(false);
+
   
     const handleCodeChange = (newCode) => {
       setCode(newCode);
     };
 
-    const sendToServer = async () => {
-        console.log('sending from client, prepare...');
-        // const lol = 'uhmm did I arrive';
+
+    // handling fetching code and displaying
+
+    useEffect(() => {
+        if (uniqueId) {
+            console.log('ohhh theres a parameter')
+            fetchCode(uniqueId)
+        }
+    }, [uniqueId]);
+
     
+    const fetchCode = async (id) => {
         try {
-            const result = await axios.post('http://localhost:3000/api/test', { code });
-            console.log('sent from server', result.data); // Log the response from the server
+            const result = await axios.get(`http://localhost:3000/api/code/${id}`)
+            const { code } = result.data;
+            console.log(code)
+            const displayCode = code.code;
+            setCode(displayCode)
+        
+
+        
         } catch (error) {
-            console.error('Error sending to server:', error); // Log any errors that occur
+            console.error(error)
+        }
+        
+    }
+
+    const sendToServer = async () => {
+        try {
+            const result = await axios.post('http://localhost:3000/api/share', { code });
+            const { uniqueId } = result.data
+            console.log('server response ' + uniqueId)
+            navigate(`/${uniqueId}`);
+
+        } catch (error) {
+            console.error('Error sending to server:', error); 
         }
     }
 
