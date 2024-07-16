@@ -14,13 +14,24 @@ app.get('/api/code/:uniqueId', async (req, res) => {
     // const findCode = db.find(code => code.uniqueId === uniqueId)
     const data = await Database.getCode(uniqueId)
 
-    // console.log('found..' + data.uniqueId)   
-
     if (data) {
         res.json({ code: data})
     } else {
         res.status(404).json({ error: 'Code not found' })
     }
+
+})
+
+
+app.put('/api/code/:uniqueId', async (req, res) => {
+    const { uniqueId }  = req.params;
+    const { code } = req.body;
+    
+
+    const result = await Database.updateCode(uniqueId, code);
+
+    console.log(uniqueId, code)
+    res.json({ message: 'updating'})
 
 })
 
@@ -33,6 +44,9 @@ app.post('/api/share', (req, res) => {
 
     res.json({ uniqueId })
 });
+
+
+
 
 
 

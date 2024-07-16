@@ -126,10 +126,11 @@ h3 {
   padding-right: 2em;
 }
 
-.button-container  > div{
+.options  {
   display: flex;
   gap: 0.5em;
 }
+
 
 .share button {
   display: flex;
@@ -194,10 +195,25 @@ h3 {
 
 
 .share {
-  width: 100px;
-  height: 100%;
+  display: flex;
+  width: 300px;
+  /* height: 100%; */
+  justify-content: space-between;
 }
 
+.share-link {
+  display: flex;
+  color: var(--dark2);
+  align-items: center;
+  gap: 0.5em;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.share-link img {
+  width: 30px;
+  height: 30px;
+}
 
 
 

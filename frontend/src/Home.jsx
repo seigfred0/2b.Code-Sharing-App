@@ -13,12 +13,23 @@ function Home() {
     const { uniqueId } = useParams();
     const navigate = useNavigate();
     const [shareEnable, setShareEnable] = useState(true);
-    const [isModified, setIsModifired] = useState(false);
+    const [isModified, setIsModified] = useState(false);
+
+    const [link, setLink] = useState('');
 
   
     const handleCodeChange = (newCode) => {
       setCode(newCode);
-      setIsModifired(true)
+      updateIsModified(true)
+
+
+    };
+
+
+
+    const updateIsModified = (value) => {
+        setIsModified(value);
+        console.log('isModified:', value);
     };
 
 
@@ -26,7 +37,6 @@ function Home() {
 
     useEffect(() => {
         if (uniqueId) {
-            console.log('ohhh theres a parameter')
             fetchCode(uniqueId)
         }
     }, [uniqueId]);
@@ -40,6 +50,7 @@ function Home() {
             const displayCode = code.code;
             setCode(displayCode);
             setShareEnable(false);
+            setLink(id)
         
 
         
@@ -49,23 +60,33 @@ function Home() {
         
     }
 
-    const sendToServer = async () => {
+    const sendToServer = async (e) => {
         try {
-            if (uniqueId && isModified) {
-                await axios.put(`http://localhost:3000/api/code/${uniqueId}`, { code })
+            if (e.target.textContent === 'Update' && uniqueId && isModified) {
+                const result = await axios.put(`http://localhost:3000/api/code/${uniqueId}`, { code });
+
+                console.log(result.data)
             } else {
                 const result = await axios.post('http://localhost:3000/api/share', { code });
                 const { uniqueId } = result.data
-                console.log('server response ' + uniqueId)
+                setLink(uniqueId)
                 navigate(`/${uniqueId}`);
             }
-            setIsModifired(false)
+            updateIsModified(false)
            
 
         } catch (error) {
             console.error('Error sending to server:', error); 
         }
     }
+
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            console.log('Link copied to clipboard!');
+        }).catch((error) => {
+            console.error('Error copying text: ', error);
+        });
+    };
 
     return(
         <div className="container">
@@ -88,8 +109,15 @@ function Home() {
                         <Button title="Light" type="toggle"/>
                     </div>
 
-                    <div className="share">
-                        <button onClick={sendToServer}>
+                    <div className="share" style={{ display: 'flex', justifyContent: link ? 'space-between' : 'flex-end' }}>
+                        {link && (
+                            <div className="share-link" onClick={copyToClipboard}>
+                                <img src="./src/assets/link.svg" alt="" />
+                                <p>../{link}</p>
+                            </div>
+                        )}
+                        
+                        <button onClick={sendToServer} >
                             { shareEnable ? 'Share' : 'Update'}
                         </button>
                     </div>
