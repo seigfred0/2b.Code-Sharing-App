@@ -6,34 +6,36 @@ import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom';
 
 function Home() {
-
     const [code, setCode] = useState('// Write your code here');
-    const [language, setLanguage] = useState('javascript');
-    const [theme, setTheme] = useState('vs-light');
+
+    const [language, setLanguage] = useState('html');
+    const [theme, setTheme] = useState('vs-dark');
     const { uniqueId } = useParams();
     const navigate = useNavigate();
     const [shareEnable, setShareEnable] = useState(true);
     const [isModified, setIsModified] = useState(false);
-
     const [link, setLink] = useState('');
 
-  
+    const handleLanguage = (newLanguage) => {
+        setLanguage(newLanguage)
+        console.log(newLanguage)
+    }
+
+    const changeTheme = () => {
+        setTheme(prevTheme => prevTheme === 'vs-light' ? 'vs-dark' : 'vs-light');
+        
+    }
+
     const handleCodeChange = (newCode) => {
       setCode(newCode);
       updateIsModified(true)
 
-
     };
-
-
 
     const updateIsModified = (value) => {
         setIsModified(value);
         console.log('isModified:', value);
     };
-
-
-    // handling fetching code and displaying
 
     useEffect(() => {
         if (uniqueId) {
@@ -45,12 +47,15 @@ function Home() {
     const fetchCode = async (id) => {
         try {
             const result = await axios.get(`http://localhost:3000/api/code/${id}`)
-            const { code } = result.data;
+            const { code, language } = result.data;
             console.log(code)
-            const displayCode = code.code;
+            console.log(language)
+
+            const displayCode = code;
+            handleLanguage(language)
             setCode(displayCode);
             setShareEnable(false);
-            setLink(id)
+            setLink(id);
         
 
         
@@ -63,11 +68,11 @@ function Home() {
     const sendToServer = async (e) => {
         try {
             if (e.target.textContent === 'Update' && uniqueId && isModified) {
-                const result = await axios.put(`http://localhost:3000/api/code/${uniqueId}`, { code });
+                const result = await axios.put(`http://localhost:3000/api/code/${uniqueId}`, { code, language });
 
                 console.log(result.data)
             } else {
-                const result = await axios.post('http://localhost:3000/api/share', { code });
+                const result = await axios.post('http://localhost:3000/api/share', { code, language });
                 const { uniqueId } = result.data
                 setLink(uniqueId)
                 navigate(`/${uniqueId}`);
@@ -95,7 +100,7 @@ function Home() {
                 <h3>Create & Share</h3>
                 <h1>Your Code easily</h1>
             </div>
-            <div className="content">
+            <div className="content" style={{ backgroundColor: theme === 'vs-dark' ? '#1E1E1E' : '#FFFFFE'}}>
                 <CodeEditor  
                 code={code}
                 language={language}
@@ -105,8 +110,8 @@ function Home() {
 
                 <div className="button-container">
                     <div className="options">
-                        <Button title="HTML" type="select" options={['HTML', 'JavaScript', 'Python']}/>
-                        <Button title="Light" type="toggle"/>
+                        <Button title={language} type="select" options={['HTML', 'JavaScript', 'Python']} language={handleLanguage}/>
+                        <Button title="Light" type="toggle" darkMode={changeTheme}/>
                     </div>
 
                     <div className="share" style={{ display: 'flex', justifyContent: link ? 'space-between' : 'flex-end' }}>

@@ -41,18 +41,19 @@ class Database {
         }
     }
 
-    static async updateCode(id, code) {
+    static async updateCode(id, code, language) {
         const { client, database } = await this.connectDB();
         try {
             const filter = { uniqueId: id };
             const update = {
                 $set: {
-                    code: code
+                    code: code,
+                    language: language 
                 }
             };
 
             const collection = database.collection('codeSharingApp');
-            const data = collection.updateOne(filter, update);
+            const data = await collection.updateOne(filter, update);
             console.log('Updated the data at: ' + id);
 
 
@@ -61,6 +62,8 @@ class Database {
             
         } catch (error) {
             console.error(error)
+        } finally {
+            client.close();
         }
     }
 

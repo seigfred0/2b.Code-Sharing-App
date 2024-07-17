@@ -15,7 +15,9 @@ app.get('/api/code/:uniqueId', async (req, res) => {
     const data = await Database.getCode(uniqueId)
 
     if (data) {
-        res.json({ code: data})
+        res.json({ code: data.code,
+            language: data.language
+        })
     } else {
         res.status(404).json({ error: 'Code not found' })
     }
@@ -24,21 +26,26 @@ app.get('/api/code/:uniqueId', async (req, res) => {
 
 
 app.put('/api/code/:uniqueId', async (req, res) => {
-    const { uniqueId }  = req.params;
-    const { code } = req.body;
-    
+    try {
+        const { uniqueId }  = req.params;
+        const { code, language } = req.body;
+        
 
-    const result = await Database.updateCode(uniqueId, code);
+        const result = await Database.updateCode(uniqueId, code, language);
 
-    console.log(uniqueId, code)
-    res.json({ message: 'updating'})
-
+        console.log('Updated')
+        console.log(uniqueId, code)
+        
+        res.json({ message: 'updating'})
+    } catch (error) {
+        console.error(error)
+    }
 })
 
 app.post('/api/share', (req, res) => {
-    const { code } = req.body;
+    const { code, language } = req.body;
     const uniqueId = generateId.generate();
-    const newCode = {code, uniqueId};
+    const newCode = {uniqueId, language, code};
     Database.saveCode(newCode);
 
 
