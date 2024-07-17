@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom';
 
 function Home() {
+    const API = 'http://localhost:3000/api';
     const [code, setCode] = useState('// Write your code here');
 
     const [language, setLanguage] = useState('html');
@@ -46,7 +47,7 @@ function Home() {
     
     const fetchCode = async (id) => {
         try {
-            const result = await axios.get(`http://localhost:3000/api/code/${id}`)
+            const result = await axios.get(`${API}/code/${id}`)
             const { code, language } = result.data;
             console.log(code)
             console.log(language)
@@ -68,11 +69,11 @@ function Home() {
     const sendToServer = async (e) => {
         try {
             if (e.target.textContent === 'Update' && uniqueId && isModified) {
-                const result = await axios.put(`http://localhost:3000/api/code/${uniqueId}`, { code, language });
+                const result = await axios.put(`${API}/code/${uniqueId}`, { code, language });
 
                 console.log(result.data)
             } else {
-                const result = await axios.post('http://localhost:3000/api/share', { code, language });
+                const result = await axios.post(`${API}/api/share`, { code, language });
                 const { uniqueId } = result.data
                 setLink(uniqueId)
                 navigate(`/${uniqueId}`);
