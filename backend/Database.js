@@ -6,13 +6,14 @@ const url = process.env.MONGODB_URI
 
 class Database {
     static async connectDB() {
+        // database has problems
         try {
             const client = await MongoClient.connect(url);
             const database = client.db('side_projects');
             console.log('Connected')
             return { client, database };
         } catch (error) {
-            console.error('Connection to MongoDB Error: ')
+            console.error('Connection to MongoDB Error: ' + error)
         }
     }
 

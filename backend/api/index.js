@@ -14,8 +14,8 @@ const corsOptions = {
     allowedHeaders: ['Content-Type', 'Authorization'], // Allow specified headers
 };
 
-// Apply CORS middleware
-app.use(cors(corsOptions));
+app.use(cors());
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -71,9 +71,9 @@ app.post('/api/share', (req, res) => {
 });
 
 // delete this
-// app.listen(3000, () => {
-//     console.log('it is running in port: 3000')
-// })
+app.listen(3000, () => {
+    console.log('it is running in port: 3000')
+})
 
 
 module.exports = app

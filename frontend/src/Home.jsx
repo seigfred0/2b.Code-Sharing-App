@@ -6,7 +6,7 @@ import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom';
 
 function Home() {
-    const API = 'https://2b-backend-om472a4wf-seigfreds-projects.vercel.app';
+    const API = 'http://localhost:3000';
     const [code, setCode] = useState('// Write your code here');
 
     const [language, setLanguage] = useState('html');
@@ -70,11 +70,7 @@ function Home() {
         try {
             if (e.target.textContent === 'Update' && uniqueId && isModified) {
                 
-                const result = await axios.put(`${API}/api/code/${uniqueId}`, { code, language }, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                    });
+                const result = await axios.put(`${API}/api/code/${uniqueId}`, { code, language });
                 
                     
                 console.log(result.data)
