@@ -97,7 +97,7 @@ function Home() {
     return(
         <div className="container">
             <div className="text">
-                <img src="./src/assets/NoteCodeLogo.svg" alt="" />
+                <img src="./public/assets/NoteCodeLogo.svg" alt="" />
                 <h3>Create & Share</h3>
                 <h1>Your Code easily</h1>
             </div>

@@ -25,7 +25,7 @@ function Button({title, type, language, darkMode}) {
         return (
             <div className="button" onClick={showOptions}>
                 <p>{ titleLang }</p> 
-                <img src="./src/assets/downArrow.svg" alt="" />
+                <img src="./public/assets/downArrow.svg" alt="" />
 
                 { isButton ? 
                     <div className="option-container">
