@@ -56,7 +56,10 @@ app.post('/api/share', (req, res) => {
     res.json({ uniqueId })
 });
 
+// delete this
+// app.listen(3000, () => {
+//     console.log('it is running in port: 3000')
+// })
 
-app.listen(3000, () => {
-    console.log('it is running in port: 3000')
-})
+
+module.exports = app
