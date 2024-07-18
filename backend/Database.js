@@ -1,6 +1,6 @@
 
-const { MongoClient } = require('mongodb');
 require('dotenv').config();
+const { MongoClient } = require('mongodb');
 
 const url = process.env.MONGODB_URI
 

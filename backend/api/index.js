@@ -3,11 +3,15 @@ const app = express();
 const path = require('path');
 const cors = require('cors');
 const generateId = require('shortid');
-const Database = require('./Database');
+const Database = require('../Database');
 
 
 app.use(cors());
 app.use(express.json());
+
+app.get('/', (req, res) => {
+    res.status(200).json({ message: 'welcome to the backend'})
+})
 
 app.get('/api/code/:uniqueId', async (req, res) => {
     const { uniqueId } = req.params;
@@ -51,10 +55,6 @@ app.post('/api/share', (req, res) => {
 
     res.json({ uniqueId })
 });
-
-
-
-
 
 
 app.listen(3000, () => {
