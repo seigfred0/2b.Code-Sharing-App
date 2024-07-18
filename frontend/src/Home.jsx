@@ -118,7 +118,7 @@ function Home() {
                     <div className="share" style={{ display: 'flex', justifyContent: link ? 'space-between' : 'flex-end' }}>
                         {link && (
                             <div className="share-link" onClick={copyToClipboard}>
-                                <img src="./src/assets/link.svg" alt="" />
+                                <img src="/link.svg" alt="" />
                                 <p>../{link}</p>
                             </div>
                         )}

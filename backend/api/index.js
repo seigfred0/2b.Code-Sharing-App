@@ -6,11 +6,12 @@ const generateId = require('shortid');
 const Database = require('../Database');
 
 const corsOptions = {
-    origin: 'https://2b-code-sharing-dikl42ok2-seigfreds-projects.vercel.app/', 
+    origin: '*',
     optionsSuccessStatus: 200 
 };
 
-app.use(express.json(corsOptions));
+app.use(cors(corsOptions));
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.status(200).json({ message: 'welcome to the backend'})
