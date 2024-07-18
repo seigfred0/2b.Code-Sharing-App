@@ -6,7 +6,7 @@ import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom';
 
 function Home() {
-    const API = 'https://2b-backend.vercel.app/';
+    const API = 'https://2b-backend.vercel.app';
     const [code, setCode] = useState('// Write your code here');
 
     const [language, setLanguage] = useState('html');

@@ -6,11 +6,11 @@ const generateId = require('shortid');
 const Database = require('../Database');
 
 const corsOptions = {
-    origin: 'http://localhost:5173', // Allow requests from this origin
-    optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+    origin: 'https://2b-code-sharing-dikl42ok2-seigfreds-projects.vercel.app/', 
+    optionsSuccessStatus: 200 
 };
 
-app.use(express.json());
+app.use(express.json(corsOptions));
 
 app.get('/', (req, res) => {
     res.status(200).json({ message: 'welcome to the backend'})
