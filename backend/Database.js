@@ -1,13 +1,14 @@
 
 const { MongoClient } = require('mongodb');
-const url = "mongodb://localhost:27017";
+require('dotenv').config();
 
+const url = process.env.MONGODB_URI
 
 class Database {
     static async connectDB() {
         try {
             const client = await MongoClient.connect(url);
-            const database = client.db('sideProjects');
+            const database = client.db('side_projects');
             console.log('Connected')
             return { client, database };
         } catch (error) {
