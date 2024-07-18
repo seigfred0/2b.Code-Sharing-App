@@ -69,8 +69,15 @@ function Home() {
     const sendToServer = async (e) => {
         try {
             if (e.target.textContent === 'Update' && uniqueId && isModified) {
-                const result = await axios.put(`${API}/api/code/${uniqueId}`, { code, language });
-
+                
+                const result = await axios.put(`${API}/api/code/${uniqueId}`, { code, language }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // Add any other necessary headers here
+                    }
+                    });
+                
+                    
                 console.log(result.data)
             } else {
                 const result = await axios.post(`${API}/api/share`, { code, language });

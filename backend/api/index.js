@@ -5,17 +5,27 @@ const cors = require('cors');
 const generateId = require('shortid');
 const Database = require('../Database');
 
+
+
 const corsOptions = {
-    origin: '*',
-    optionsSuccessStatus: 200 
+    origin: '*', // Allow requests from any origin (replace with your frontend URL in production)
+    credentials: true, // Allow cookies and other credentials to be sent
+    methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'], // Allow specified methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow specified headers
 };
 
+// Apply CORS middleware
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
     res.status(200).json({ message: 'welcome to the backend'})
-})
+    // res.setHeader("Access-Control-Allow-Origin", "*")
+    // res.setHeader("Access-Control-Allow-Credentials", "true");
+    // res.setHeader("Access-Control-Max-Age", "1800");
+    // res.setHeader("Access-Control-Allow-Headers", "content-type");
+    // res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
+});
 
 app.get('/api/code/:uniqueId', async (req, res) => {
     const { uniqueId } = req.params;
