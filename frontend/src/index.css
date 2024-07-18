@@ -37,7 +37,7 @@ img {
 }
 
 .container {
-  background-image: url(./Hero.svg);
+  background-image: url(/Hero.svg);
   height: 900px;
   background-repeat: no-repeat;
   width: 100%;
