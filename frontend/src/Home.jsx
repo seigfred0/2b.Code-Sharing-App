@@ -6,7 +6,7 @@ import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom';
 
 function Home() {
-    const API = 'https://2b-backend.vercel.app';
+    const API = 'https://2b-backend-om472a4wf-seigfreds-projects.vercel.app';
     const [code, setCode] = useState('// Write your code here');
 
     const [language, setLanguage] = useState('html');
@@ -73,7 +73,6 @@ function Home() {
                 const result = await axios.put(`${API}/api/code/${uniqueId}`, { code, language }, {
                     headers: {
                         'Content-Type': 'application/json',
-                        // Add any other necessary headers here
                     }
                     });
                 
