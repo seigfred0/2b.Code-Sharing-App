@@ -5,7 +5,6 @@ const cors = require('cors');
 const generateId = require('shortid');
 const Database = require('../Database');
 
-
 app.use(cors());
 app.use(express.json());
 
