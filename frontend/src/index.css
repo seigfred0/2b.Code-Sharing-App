@@ -37,7 +37,7 @@ img {
 }
 
 .container {
-  background-image: url(./public/assets/Hero.svg);
+  background-image: url(./Hero.svg);
   height: 900px;
   background-repeat: no-repeat;
   width: 100%;
@@ -154,7 +154,7 @@ h3 {
 }
 
 .share button::before {
-  content: url('./public/assets/Share.svg');
+  content: url('/Share.svg');
   padding-top: 0.2em;
   padding-right: 0.4em;
 }
@@ -247,7 +247,7 @@ h3 {
   }
 
   .container {
-    background-image: url(./public/assets/Hero.svg);
+    background-image: url(/Hero.svg);
     max-height: 500px;
     background-repeat: no-repeat;
     width: 100%;
