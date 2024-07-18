@@ -6,7 +6,7 @@ const url = process.env.MONGODB_URI
 
 class Database {
     static async connectDB() {
-        // database has problems
+        // database has problem
         try {
             const client = await MongoClient.connect(url);
             const database = client.db('side_projects');
