@@ -78,8 +78,8 @@ function Home() {
                 const result = await axios.post(`${API}/api/share`, { code, language });
                 const { uniqueId } = result.data
                 setLink(uniqueId)
-                // navigate(`/${uniqueId}`);
-                navigate(`/api/code/${uniqueId}`);
+                navigate(`/${uniqueId}`);
+                // navigate(`/api/code/${uniqueId}`);
 
             }
             updateIsModified(false)
