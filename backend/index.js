@@ -35,7 +35,7 @@ app.get('/api', (req, res) => {
 //     res.json({ hello: 'hello'})
 // })
 
-app.get('/api/:uniqueId',  async (req, res) => {
+app.get('/api/code/:uniqueId',  async (req, res) => {
     const { uniqueId } = req.params;
     const findCode = db.find(code => code.uniqueId === uniqueId)
     const data = await Database.getCode(uniqueId)
