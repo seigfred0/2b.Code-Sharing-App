@@ -28,8 +28,12 @@ app.get("/", (req, res) => {
 });
 
 app.get('/api', (req, res) => {
-    res.json({ hello: 'hello'})
-})
+    const protocol = req.protocol;
+    const host = req.get('host');
+    const domain = `${protocol}://${host}`;
+    
+    res.json({ hello: 'hello', domain: domain });
+});
 
 // app.get('/api/hello', (req, res) => {
 //     res.json({ hello: 'hello'})
