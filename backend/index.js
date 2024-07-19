@@ -40,7 +40,12 @@ app.get('/api/code/:uniqueId',  async (req, res) => {
     const findCode = db.find(code => code.uniqueId === uniqueId)
     const data = await Database.getCode(uniqueId)
 
+    res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins (for development purposes)
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
     res.json({ uniqueId })
+    
     if (data) {
         res.json({ code: data.code,
             language: data.language

@@ -96,6 +96,15 @@ function Home() {
         });
     };
 
+    const testBackend = async () => {
+        try {
+            const response = await axios.get(`${API}/api`);
+            console.log(response.data);
+        } catch (error) {
+            console.error('There was an error!', error);
+        }
+    };
+
     return(
         <div className="container">
             <div className="text">
@@ -115,6 +124,7 @@ function Home() {
                     <div className="options">
                         <Button title={language} type="select" options={['HTML', 'JavaScript', 'Python']} language={handleLanguage}/>
                         <Button title="Light" type="toggle" darkMode={changeTheme}/>
+                        <button onClick={testBackend}>Say hi</button>
                     </div>
 
                     <div className="share" style={{ display: 'flex', justifyContent: link ? 'space-between' : 'flex-end' }}>
