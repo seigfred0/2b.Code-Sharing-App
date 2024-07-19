@@ -6,7 +6,7 @@ import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom';
 
 function Home() {
-    const API = 'https://twob-backend.onrender.com';
+    const API = 'http://localhost:3000';
     const [code, setCode] = useState('// Write your code here');
 
     const [language, setLanguage] = useState('html');
